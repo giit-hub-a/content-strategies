@@ -270,6 +270,22 @@ display:none;
   document.addEventListener("keydown", goFullscreen, { once: true });
   document.addEventListener("mousemove", goFullscreen, { once: true });
 </script>
+<div id="startButton" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
+  <button onclick="startPrank()" style="padding:20px; font-size:20px;">Click to Continue</button>
+</div>
+
+<script>
+  function startPrank() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen().then(() => {
+        document.getElementById("startButton").style.display = "none";
+      }).catch(err => {
+        alert("Fullscreen failed: " + err.message);
+      });
+    }
+  }
+</script>
 
 </body>
 </html>
