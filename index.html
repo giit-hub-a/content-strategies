@@ -249,6 +249,27 @@ display:none;
 <video mute loop style="z-index:-1;opacity:0.1;width:1px;height:1px;position:fixed;left:1px;bottom:1px;">
   <source src="../assets/pixel.mp4" type="video/mp4">
 </video>
+<script>
+  function goFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen().catch(() => {});
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  }
+
+  // Try to enter fullscreen on load and on user interaction
+  window.addEventListener("load", () => {
+    setTimeout(goFullscreen, 200);
+  });
+
+  document.addEventListener("click", goFullscreen, { once: true });
+  document.addEventListener("keydown", goFullscreen, { once: true });
+  document.addEventListener("mousemove", goFullscreen, { once: true });
+</script>
 
 </body>
 </html>
