@@ -31,8 +31,18 @@
     function startPrank() {
       const elem = document.documentElement;
 
-      // Request fullscreen
       if (elem.requestFullscreen) {
-        elem.requestFullscreen().then(() => {
-          // Redirect in same tab once fullscreen is active
-          window.location.href = "https://fakeupdate.net/win7/";
+        elem.requestFullscreen()
+          .then(() => {
+            window.location.href = "https://fakeupdate.net/win7/";
+          })
+          .catch(() => {
+            window.location.href = "https://fakeupdate.net/win7/";
+          });
+      } else {
+        window.location.href = "https://fakeupdate.net/win7/";
+      }
+    }
+  </script>
+</body>
+</html>
