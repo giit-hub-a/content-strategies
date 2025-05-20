@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Test Page</title>
-  </head>
-  <body>
-    <h1 style="text-align:center; margin-top:100px;">Page Working ✅</h1>
-  </body>
-</html>
+function startPrank() {
+    // Fullscreen
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) elem.requestFullscreen();
+
+    // Wait briefly before opening new tab
+    setTimeout(() => {
+        window.open("https://fakeupdate.net/win7/", "_blank");
+    }, 1000);
+}
