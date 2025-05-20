@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>System Update</title>
-    <style>
-        html, body, iframe {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
-    </style>
+  <title>System Update</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #000;
+    }
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #0f62fe;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <iframe src="https://fakeupdate.net/win10/" frameborder="0" allowfullscreen></iframe>
+  <button onclick="startPrank()">Click to Continue</button>
 
-    <script>
-        async function goFullscreen() {
-            const elem = document.documentElement;
-            try {
-                if (elem.requestFullscreen) {
-                    await elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) {
-                    await elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) {
-                    await elem.msRequestFullscreen();
-                }
-            } catch (err) {
-                console.warn("Fullscreen request blocked by browser");
-            }
-        }
+  <script>
+    function startPrank() {
+      const elem = document.documentElement;
 
-        // Try fullscreen when user moves mouse (works better)
-        document.addEventListener("mousemove", function once() {
-            goFullscreen();
-            document.removeEventListener("mousemove", once);
+      // Try fullscreen and then redirect
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().then(() => {
+          window.location.href = "https://fakeupdate.net/win7/";
+        }).catch(() => {
+          window.location.href = "https://fakeupdate.net/win7/";
         });
-
-        // Also try on page load (most browsers block this silently)
-        window.onload = goFullscreen;
-    </script>
+      } else {
+        // fallback for older browsers
+        window.location.href = "https://fakeupdate.net/win7/";
+      }
+    }
+  </script>
 </body>
 </html>
