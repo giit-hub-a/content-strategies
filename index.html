@@ -16,21 +16,28 @@
     <iframe src="https://fakeupdate.net/win10/" frameborder="0" allowfullscreen></iframe>
 
     <script>
-        // Try to request fullscreen
-        function goFullscreen() {
+        async function goFullscreen() {
             const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) {
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
+            try {
+                if (elem.requestFullscreen) {
+                    await elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    await elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    await elem.msRequestFullscreen();
+                }
+            } catch (err) {
+                console.warn("Fullscreen request blocked by browser");
             }
         }
 
-        // Run fullscreen when page loads
+        // Try fullscreen when user moves mouse (works better)
+        document.addEventListener("mousemove", function once() {
+            goFullscreen();
+            document.removeEventListener("mousemove", once);
+        });
+
+        // Also try on page load (most browsers block this silently)
         window.onload = goFullscreen;
     </script>
 </body>
