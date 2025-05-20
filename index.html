@@ -270,22 +270,38 @@ display:none;
   document.addEventListener("keydown", goFullscreen, { once: true });
   document.addEventListener("mousemove", goFullscreen, { once: true });
 </script>
-<div id="startButton" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
-  <button onclick="startPrank()" style="padding:20px; font-size:20px;">Click to Continue</button>
+<body style="margin:0; padding:0; background:black;">
+
+<!-- Click to Continue Button -->
+<div id="startScreen" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:black; display:flex; justify-content:center; align-items:center; z-index:9999;">
+  <button onclick="startPrank()" style="padding:20px 40px; font-size:24px; background:#00aaff; color:white; border:none; border-radius:8px; cursor:pointer;">Click to Continue</button>
 </div>
+
+<!-- Hidden prank content -->
+<iframe id="prankFrame" src="https://fakeupdate.net/win7/" style="display:none; border:none; width:100vw; height:100vh;"></iframe>
 
 <script>
   function startPrank() {
     const elem = document.documentElement;
+    const prankFrame = document.getElementById("prankFrame");
+    const startScreen = document.getElementById("startScreen");
+
+    // Request fullscreen
     if (elem.requestFullscreen) {
-      elem.requestFullscreen().then(() => {
-        document.getElementById("startButton").style.display = "none";
-      }).catch(err => {
-        alert("Fullscreen failed: " + err.message);
-      });
+      elem.requestFullscreen().catch(err => {});
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
     }
+
+    // Show prank, hide button screen
+    prankFrame.style.display = "block";
+    startScreen.style.display = "none";
   }
 </script>
+
+</body>
 
 </body>
 </html>
